@@ -1,0 +1,16 @@
+node_modules
+.next
+.expo
+dist
+*.log
+.DS_Store
+.env*
+!.env.example
+.pnpm-store
+.data
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+INTERVIEWER.md

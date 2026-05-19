@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Habits",
+    "slug": "habits",
+    "version": "0.0.0",
+    "scheme": "habits",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.example.habits" },
+    "android": { "package": "com.example.habits" },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "ios": { "deploymentTarget": "16.0" },
+          "android": { "minSdkVersion": 24, "compileSdkVersion": 35, "targetSdkVersion": 35 }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
