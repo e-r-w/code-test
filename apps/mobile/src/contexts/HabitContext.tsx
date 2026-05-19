@@ -5,7 +5,7 @@ import { type ApiHabit, api } from "../api";
 interface HabitContextValue {
 	habits: ApiHabit[];
 	loading: boolean;
-	addHabit: (name: string) => Promise<void>;
+	addHabit: (name: string, notes?: string) => Promise<void>;
 	removeHabit: (id: string) => Promise<void>;
 	refresh: () => Promise<void>;
 }
@@ -26,8 +26,8 @@ export function HabitProvider({ children }: { children: React.ReactNode }) {
 		}
 	}
 
-	async function addHabit(name: string) {
-		const { habit } = await api.createHabit(name);
+	async function addHabit(name: string, notes: string = "") {
+		const { habit } = await api.createHabit(name, notes);
 		// Optimistic-ish insert + refetch for consistency.
 		habits.push(habit);
 		setHabits(habits);

@@ -35,10 +35,13 @@ export const api = {
 	listHabits(): Promise<{ habits: ApiHabit[] }> {
 		return http("/api/habits");
 	},
-	createHabit(name: string): Promise<{ habit: ApiHabit }> {
+	createHabit(
+		name: string,
+		notes: string = "",
+	): Promise<{ habit: ApiHabit }> {
 		return http("/api/habits", {
 			method: "POST",
-			body: JSON.stringify({ name }),
+			body: JSON.stringify({ name, notes }),
 		});
 	},
 	deleteHabit(id: string): Promise<{ ok: true }> {
@@ -52,6 +55,15 @@ export const api = {
 	},
 	getHabit(id: string): Promise<{ habit: ApiHabit }> {
 		return http(`/api/habits/${id}`);
+	},
+	updateHabit(
+		id: string,
+		patch: Partial<Pick<ApiHabit, "name" | "notes">>,
+	): Promise<{ habit: ApiHabit }> {
+		return http(`/api/habits/${id}`, {
+			method: "PATCH",
+			body: JSON.stringify(patch),
+		});
 	},
 };
 
