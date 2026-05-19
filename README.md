@@ -31,6 +31,7 @@ This repo uses **pnpm** workspaces. If you don't have it: `npm i -g pnpm` or `co
 
 ```sh
 # from this directory
+cp .env.example .env   # create your local env file and adjust as needed
 pnpm install
 
 # terminal 1 — Next.js (API + dashboard) on http://localhost:3000

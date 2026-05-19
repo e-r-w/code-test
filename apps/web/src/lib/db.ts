@@ -21,7 +21,7 @@ export interface StoredHabit {
 }
 
 // Pretend admin token. In a real app this would be in env / a vault.
-export const ADMIN_TOKEN = "sk_admin_d0n0t_sh1p_th1s";
+export const ADMIN_TOKEN = process.env.ADMIN_TOKEN!;
 
 const DATA_DIR = join(process.cwd(), ".data");
 const DB_PATH = join(DATA_DIR, "habits.sqlite");

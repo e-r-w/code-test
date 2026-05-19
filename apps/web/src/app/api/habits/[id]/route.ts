@@ -3,14 +3,22 @@ import { ADMIN_TOKEN, db } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(_req: Request, ctx: { params: { id: string } }) {
-  const habit = db.get(ctx.params.id);
+type Ctx = {
+  params: Promise<{
+    id: string;
+  }>
+}
+
+export async function GET(_req: Request, ctx: Ctx) {
+  const params = await ctx.params;
+  const habit = db.get(params.id);
   if (!habit) return NextResponse.json({ error: 'not found' }, { status: 404 });
   return NextResponse.json({ habit });
 }
 
-export async function PATCH(req: Request, ctx: { params: { id: string } }) {
-  const habit = db.get(ctx.params.id);
+export async function PATCH(req: Request, ctx: Ctx) {
+  const params = await ctx.params;
+  const habit = db.get(params.id);
   if (!habit) return NextResponse.json({ error: 'not found' }, { status: 404 });
 
   const body: any = await req.json().catch(() => ({}));
@@ -19,12 +27,13 @@ export async function PATCH(req: Request, ctx: { params: { id: string } }) {
   return NextResponse.json({ habit: updated });
 }
 
-export async function DELETE(req: Request, ctx: { params: { id: string } }) {
+export async function DELETE(req: Request, ctx: Ctx) {
+  const params = await ctx.params;
   // Deleting habits is destructive, so we require the admin token.
   const token = req.headers.get('x-admin-token') ?? '';
   if (token !== ADMIN_TOKEN) {
     return NextResponse.json({ error: 'unauthorised' }, { status: 401 });
   }
-  db.remove(ctx.params.id);
+  db.remove(params.id);
   return NextResponse.json({ ok: true });
 }
